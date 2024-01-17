@@ -10,7 +10,12 @@ The same is done for C (not yet). See `take help` for more details.
 - `git`
 - the `which` command. Available on most POSIX systems.
 
+## Support
+Take is very unstable, and only tested on Fedora Linux 39. Expect bugs and errors.
+
 ## Installing
+
+The following section explains the installation. Linux is recommended, but Mac OS will probably work
 
 Take needs a directory where all your projects will be. In that directory you have to clone this repo.
 ```sh
@@ -27,7 +32,8 @@ To make sure that the `take` command is on path, add the following line to `~/.b
 ```bash
 export PATH="$PATH:$HOME/dev/take/bin"
 ```
-The path to export is always the `bin` directory in the take repository.
+The path to export is always the `bin` directory in the take repository. When skipping this step,
+you will be warned by default.
 
 ## Configuring
 
@@ -38,3 +44,8 @@ You should always modify the `take/takecli/main.py` file. After applying the mod
 Somethings to configure/add:
 - colored output
 - different C compiler preferences
+
+## Projects
+
+Every `take` project has a configuration file name `take.toml`. I here is information like the author, name and version.
+You can also register custom commands that can be executed by `take this <command>` when being in the project.
