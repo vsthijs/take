@@ -1,0 +1,9 @@
+[package]
+name = "take"
+version = "0.0.0"
+author = "Thijs van Straaten"
+
+[dependencies]
+
+[cmd.install]
+command = "@python install.py"
