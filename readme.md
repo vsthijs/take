@@ -1,7 +1,8 @@
 # Take
 
-Take manages your local projects. It takes care of dependency and your programming environment.
-Take can act as an alias for the Python interpreter, but modifies `PYTHONPATH` so your projects can import eachother. The same is done for C (not yet). See `take help` for more details.
+Take manages your local programming projects. It takes care of dependencies and your programming environment.
+Take can act as an alias for the Python interpreter, but modifies `PYTHONPATH` so your projects can import eachother.
+The same is done for C (not yet). See `take help` for more details.
 
 ## Requirements
 
