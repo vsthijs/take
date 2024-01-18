@@ -123,6 +123,9 @@ Commands:
     new <name> [flags]  Create a new package.
     this <cmd> [flags]  Execute a command, defined by the package.
     clone <name> <url>  Downloads a remote repository using git.
+    env <prog> [flags]  Run a program with the development environment
+                        variables exported.
+    reload              reinstalls the take executable.
     
     cc [cflags]         Act as a C compiler. Chooses between gcc,clang,cc,
                         zig cc,tcc. Automatically adds -L flags for all
@@ -170,12 +173,15 @@ def cmd_this(args: list[str], prog: str) -> int:
     cmd, args = shift(args)
 
     if command := package_get_cmd(pack, cmd):
-        command = command.replace("@python", "take py")
-        command = command.replace("@cc", "take cc")
+        commands = []
+        for ii in command:
+            commands.append((ii.replace("@python", "take py")
+                               .replace("@cc", "take cc")))
         old = os.getcwd()
         os.chdir(join(pack))
-        print(command)
-        res = subprocess.call(command.split(" "))
+        for ii in commands:
+            print(ii)
+            res = subprocess.call(ii.split(" "))
         os.chdir(old)
         return res
     else:
@@ -239,6 +245,12 @@ def cmd_reload(args: list[str], prog: str) -> int:
     return main([__file__, "this", "install"])
 
 
+def cmd_env(args:list[str], prog:str)->int:
+    env = {**os.environ}
+    env["PYTHONPATH"] = ":".join([os.environ.get("PYTHONPATH", ""), *[join(ii) for ii in get_list()]])
+    return subprocess.call(args, shell=True, env=env)
+
+
 def main(args: list[str]) -> int:
     prog, args = shift(args)
     if not os.path.isabs(prog):
@@ -259,6 +271,7 @@ def main(args: list[str]) -> int:
         "py": cmd_py,
         "clone": cmd_clone,
         "reload": cmd_reload,
+        "env": cmd_env,
     }
 
     if cmd in builtincmds:

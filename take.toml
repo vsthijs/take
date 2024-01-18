@@ -6,4 +6,6 @@ author = "Thijs van Straaten"
 [dependencies]
 
 [cmd.install]
-command = "@python install.py"
+command = [
+	"@python install.py",
+]
