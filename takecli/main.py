@@ -175,8 +175,9 @@ def cmd_this(args: list[str], prog: str) -> int:
     if command := package_get_cmd(pack, cmd):
         commands = []
         for ii in command:
-            commands.append((ii.replace("@python", "take py")
-                               .replace("@cc", "take cc")))
+            tc = ii.replace("@python", "take py").replace("@cc", "take cc")
+            commands.append(tc)
+
         old = os.getcwd()
         os.chdir(join(pack))
         for ii in commands:
